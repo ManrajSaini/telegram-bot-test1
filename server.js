@@ -31,6 +31,22 @@ bot.onText(/\/meme/, async msg => {
     bot.sendPhoto(chatId, img);
 });
 
+let interval;
+bot.onText(/\/eye/, msg => {
+    const chatId = msg.chat.id;
 
+    bot.sendMessage(chatId, "You are now Subscribed to eye reminders !");
 
+    interval = setInterval(() => {
+        bot.sendMessage(chatId, "Please take an eye break now !")
+            .catch(console.error);
+    }, 1000*5);
+});
+
+bot.onText(/\/stop/, msg => {
+    const chatId = msg.chat.id;
+
+    clearInterval(interval);
+    bot.sendMessage(chatId, "You are now Unsubscribed to eye reminders !");
+});
 
